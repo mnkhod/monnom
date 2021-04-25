@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity,Dimensions, Image } from 'react-native';
+import { StyleSheet, Text, FlatList, View, ScrollView, TouchableOpacity,Dimensions, Image } from 'react-native';
 import BookCard from '../components/BookCard.js';
 import BookComment from '../components/BookComment.js';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,62 +11,68 @@ const {width: screenWidth} = Dimensions.get('window');
 export default function SingleBookScreen({ navigation }) {
 
 	return (
-			<ScrollView style={styles.container} >
-				<TouchableOpacity style={styles.backButton} onPress={() => navigation.pop()} >
-					<MaterialCommunityIcons name="chevron-left" color={'white'} size={46} />
-				</TouchableOpacity>
-				<View style={styles.innerContainer} >
-					<View style={styles.top} >
-						<Image style={styles.bookImage} source={require('../assets/book-1.png')} />
-					</View>
-					<View style={styles.detailContainer} >
-						<View style={styles.nameContainer} >
-							<Text style={styles.name}>Ногоон нүдэн лам</Text>
-							<Text style={styles.author}>Ц. Оюунгэрэл</Text>
+		<FlatList
+			style={styles.container} 
+			ListHeaderComponent={
+				<>
+					<TouchableOpacity style={styles.backButton} onPress={() => navigation.pop()} >
+						<MaterialCommunityIcons name="chevron-left" color={'white'} size={46} />
+					</TouchableOpacity>
+					<View style={styles.innerContainer} >
+						<View style={styles.top} >
+							<Image style={styles.bookImage} source={require('../assets/book-1.png')} />
 						</View>
-						<Text style={styles.price}>Үнэ: 17'900₮</Text>
-					</View>
-					<View style={styles.typesContainer} >
-						<Text style={styles.soldNumber} >
-							Худалдагдсан тоо: 103
-						</Text>
-						<View style={styles.iconsContainer} >
-							<TouchableOpacity style={styles.iconContainer} onPress={() => navigation.push('bookPlayerScreen')}>
-								<MaterialCommunityIcons name={'music-note'} color={'#DE5246'} size={25} />
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.iconContainer}>
-								<MaterialCommunityIcons name={'eye'} color={'#DE5246'} size={25} />
-							</TouchableOpacity>
-							<TouchableOpacity style={styles.iconContainer} onPress={() => navigation.push('buyBookScreen')}>
-								<MaterialCommunityIcons name={'layers'} color={'#DE5246'} size={25} />
-							</TouchableOpacity>
+						<View style={styles.detailContainer} >
+							<View style={styles.nameContainer} >
+								<Text style={styles.name}>Ногоон нүдэн лам</Text>
+								<Text style={styles.author}>Ц. Оюунгэрэл</Text>
+							</View>
+							<Text style={styles.price}>Үнэ: 17'900₮</Text>
 						</View>
+						<View style={styles.typesContainer} >
+							<Text style={styles.soldNumber} >
+								Худалдагдсан тоо: 103
+							</Text>
+							<View style={styles.iconsContainer} >
+								<TouchableOpacity style={styles.iconContainer} onPress={() => navigation.push('bookPlayerScreen')}>
+									<MaterialCommunityIcons name={'music-note'} color={'#DE5246'} size={25} />
+								</TouchableOpacity>
+								<TouchableOpacity style={styles.iconContainer}>
+									<MaterialCommunityIcons name={'eye'} color={'#DE5246'} size={25} />
+								</TouchableOpacity>
+								<TouchableOpacity style={styles.iconContainer} onPress={() => navigation.push('buyBookScreen')}>
+									<MaterialCommunityIcons name={'layers'} color={'#DE5246'} size={25} />
+								</TouchableOpacity>
+							</View>
+						</View>
+						<View style={styles.bookIntro} >
+							<Text style={styles.introTitle} >Товч тайлбар:</Text>
+							<Text
+								style={styles.intro}
+								numberOfLines={4}
+							>
+								Уг номыг Монголд улс төрийн хилс хэргээр хэлмэгдэж байсан хохирогчид, тэдгээрийн ар гэр, үр хүүхдэд зориулан бичжээ. Зохиолд хөдөөгийн залуу сайхан бүсгүй Сэндмаа, хийдийн идэр лам Баасан нарын ээдрээт
+							</Text>
+						</View>
+						<View style={styles.quotes} >
+							<Text style={styles.quotesTitle} >ИШЛЭЛ:</Text>
+							<Text style={styles.quote} >" Боломжгүй (impossible) зүйл гэж үгүй, үг нь хүртэл i’m possible (би боломжтой) "</Text>
+						</View>
+						<BookCardList
+							title={'Ц. Оюунгэрэл'}
+							titleColor={'white'}
+						/>
 					</View>
-					<View style={styles.bookIntro} >
-						<Text style={styles.introTitle} >Товч тайлбар:</Text>
-						<Text
-							style={styles.intro}
-							numberOfLines={4}
-						>
-							Уг номыг Монголд улс төрийн хилс хэргээр хэлмэгдэж байсан хохирогчид, тэдгээрийн ар гэр, үр хүүхдэд зориулан бичжээ. Зохиолд хөдөөгийн залуу сайхан бүсгүй Сэндмаа, хийдийн идэр лам Баасан нарын ээдрээт
-						</Text>
-					</View>
-					<View style={styles.quotes} >
-						<Text style={styles.quotesTitle} >ИШЛЭЛ:</Text>
-						<Text style={styles.quote} >" Боломжгүй (impossible) зүйл гэж үгүй, үг нь хүртэл i’m possible (би боломжтой) "</Text>
-					</View>
-					<View style={styles.commentsContainer} >
-						<Text style={styles.commentTitle} >Сэтгэгдэлүүд:</Text>
-						<View style={styles.innerCommentsContainer} >
+				</>
+			}
+			ListFooterComponentStyle={styles.innerContainer} 
+			ListFooterComponent={
+						<View style={styles.commentsContainer} >
+							<Text style={styles.commentTitle} >Сэтгэгдэлүүд:</Text>
 							<Comments />
 						</View>
-					</View>
-					<BookCardList
-						title={'Ц. Оюунгэрэл'}
-						titleColor={'white'}
-					/>
-				</View>
-			</ScrollView>
+			}
+		/>
 	) 
 }
 
@@ -77,6 +83,7 @@ let styles = StyleSheet.create({
 	},
 	
 	innerCommentsContainer: {
+		overflow: 'scroll',
 		width: '100%',
 		height: 200,
 	},
@@ -84,7 +91,6 @@ let styles = StyleSheet.create({
 	innerContainer: {
 		width: '90%',
 		alignSelf: 'center',
-		alignItems: 'center'
 	},
 	
 	bookImage: {
@@ -92,6 +98,7 @@ let styles = StyleSheet.create({
 		width: 150,
 		height: 150 * 9/6,
 		resizeMode: 'cover',
+		alignSelf: 'center'
 	},
 
 	backButton: {

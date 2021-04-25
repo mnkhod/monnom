@@ -42,13 +42,13 @@ export default function SearchScreen({ navigation }) {
 			<View style={styles.searchContainer} >
 				<View style={styles.inputContainer} >
 					<Icon name={'search'} size={25} color={'grey'} />
-					<TextInput
-						autoCorrect={false}
-						style={styles.input} 
-						textContentType='none'
-						ref={searchInput}
-						autoFocus={true}
-					/>
+						<TextInput
+							autoCorrect={false}
+							style={styles.input} 
+							textContentType='none'
+							ref={searchInput}
+							autoFocus={true}
+						/>
 				</View>
 				<TouchableOpacity style={styles.searchButton} onPress={() => console.log('btn')}>
 					<Text style={styles.searchText} >
@@ -99,7 +99,8 @@ let styles = StyleSheet.create({
 
 	input: {
 		marginLeft: 15,
-		flex: 1
+		padding: 0,
+		flex: 1,
 	},
 
 	searchContainer: {
@@ -113,7 +114,11 @@ let styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 	},
-
+	
+	iconContainer: {
+		alignSelf: 'center'
+	},
+	
 	searchText: {
 		paddingVertical: 10,
 		color: 'white'
@@ -125,7 +130,8 @@ let styles = StyleSheet.create({
 		borderRadius: 15,
 		padding: 10,
 		backgroundColor: 'white',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		alignItems: 'center'
 	},
 
 	buttonsContainer: {

@@ -11,7 +11,7 @@ const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 let episodes = [ 1,2,3,4,5,6,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8 ];
 
 export default function PodcastPlayerScreen ({ navigation }) {
-	let [ loadedSound, setLoadedSound ] = useState(false);
+	let [ loadedSound, setLoadedSound ] = useState(true);
 
 	return (
 		<View style={styles.container} >

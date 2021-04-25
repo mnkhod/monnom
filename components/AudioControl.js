@@ -28,12 +28,12 @@ export default function AudioControl({ bookPlayer }) {
 			<Slider
 				value={0}
 				onValueChange={handlePositionChange}
+				onSlidingComplete={e => console.log(e)}
 				width={screenWidth * 0.9}
 				animationType={'spring'}
 				thumbTintColor={'white'}
 				minimumTrackTintColor={'#DE5246'}
 				maximumTrackTintColor={'#DE5246'}
-				onSlidingComplete={e => console.log(e)}
 				thumbTouchSize={{ width: 50, height: 50 }}
 			/>
 			<View style={styles.controller} >
@@ -75,6 +75,7 @@ export default function AudioControl({ bookPlayer }) {
 			<View style={styles.soundSliderContainer} >
 				<MaterialCommunityIcons name="volume-medium" color={'#DE5246'} size={25} />
 				<Slider
+					value={0}
 					ref={volumeSlider}
 					onValueChange={handleVolumeChange}
 					width={screenWidth * 0.65}
