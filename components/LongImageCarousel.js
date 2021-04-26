@@ -156,7 +156,6 @@ export default function LongImageCarousel({ titleColor, title }) {
 			/>
 		);
 	};
-
 	return (
 		<View style={styles.container}>
 			<View style={ styles.titleContainer } >
@@ -171,8 +170,8 @@ export default function LongImageCarousel({ titleColor, title }) {
 				itemWidth={screenWidth * 0.7}
 				data={entries}
 				renderItem={renderItem}
-				hasParallaxImages={true}
 				firstItem={2}
+				enableSnap={false}
 			/>
 		</View>
 	);

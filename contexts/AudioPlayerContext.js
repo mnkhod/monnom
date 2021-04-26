@@ -6,7 +6,7 @@ let AudioPlayerContext = createContext();
 function AudioPlayerContextProvider({ children }) {
 
 	return (
-		<AudioPlayerContext.Provider>
+		<AudioPlayerContext.Provider value={'audio'}>
 			{children}
 		</AudioPlayerContext.Provider>
 	)
