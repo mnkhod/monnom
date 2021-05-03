@@ -6,10 +6,42 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Slider from 'react-native-slider';
+import TrackPlayer from 'react-native-track-player';
+
 
 const {width: screenWidth} = Dimensions.get('window');
 
 export default function AudioControl({ bookPlayer }) {
+	const start = async () => {
+		await TrackPlayer.setupPlayer();
+		await TrackPlayer.updateOptions({
+			stopWithApp: true,
+			capabilities: [
+				TrackPlayer.CAPABILITY_PLAY,
+				TrackPlayer.CAPABILITY_PAUSE,
+				TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+				TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+				TrackPlayer.CAPABILITY_STOP,
+				TrackPlayer.CAPABILITY_SEEK_TO,
+			],
+			compactCapabilities: [
+				TrackPlayer.CAPABILITY_PLAY,
+				TrackPlayer.CAPABILITY_PAUSE,
+			],
+		});
+
+		await TrackPlayer.add({
+			id: 'trackId',
+			url: require('../assets/test.mp3'),
+			title: 'test',
+			artist: 'test artist',
+			artwork: require('../assets/podcast-1.png')
+		});
+
+		// Start playing it
+		await TrackPlayer.play();
+	};
+
 	let [ volumeSliderValue, setVolumeSliderValue ] = useState(0.6);
 	let [ isPlaying, setIsPlaying ] = useState();
 	let volumeSlider = useRef();
@@ -20,8 +52,32 @@ export default function AudioControl({ bookPlayer }) {
 
 	let handlePositionChange = (position) => {
 	}
+
 	useEffect(() => {
 	},[])
+
+	let handlePlay = async () => {
+		let state = await TrackPlayer.getState();
+		if (state == TrackPlayer.STATE_PAUSED) {
+			TrackPlayer.play();
+		} else {
+			start();
+		}
+	}
+
+	let handlePause = () => {
+		TrackPlayer.pause();
+	}
+
+	let handleSkipRight = async() => {
+		let position = await TrackPlayer.getPosition();
+		TrackPlayer.seekTo(position + 5);
+	}
+	
+	let handleSkipLeft = async () => {
+		let position = await TrackPlayer.getPosition();
+		TrackPlayer.seekTo(position - 5);
+	}
 
 	return (
 		<View style={styles.container} >
@@ -30,7 +86,6 @@ export default function AudioControl({ bookPlayer }) {
 				onValueChange={handlePositionChange}
 				onSlidingComplete={e => console.log(e)}
 				width={screenWidth * 0.9}
-				animationType={'spring'}
 				thumbTintColor={'white'}
 				minimumTrackTintColor={'#DE5246'}
 				maximumTrackTintColor={'#DE5246'}
@@ -48,16 +103,16 @@ export default function AudioControl({ bookPlayer }) {
 						</TouchableOpacity>
 					)
 				}
-				<TouchableOpacity style={styles.iconContainer} >
+				<TouchableOpacity style={styles.iconContainer} onPress={handleSkipLeft}>
 					<MaterialIcons name="rotate-left" color={'white'} size={25} />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.midIconContainer}  >
+				<TouchableOpacity style={styles.midIconContainer} onPress={handlePlay}  >
 					<FontAwesome name="play" color={'white'} size={25} />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.midIconContainer} >
+				<TouchableOpacity style={styles.midIconContainer} onPress={handlePause}>
 					<FontAwesome name="pause" color={'white'} size={25} />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.iconContainer} >
+				<TouchableOpacity style={styles.iconContainer} onPress={handleSkipRight} >
 					<MaterialIcons name="rotate-right" color={'white'} size={25} />
 				</TouchableOpacity>
 				{
@@ -83,7 +138,7 @@ export default function AudioControl({ bookPlayer }) {
 					minimumTrackTintColor={'#DE5246'}
 					maximumTrackTintColor={'#DE5246'}
 					step={0.05}
-				thumbTouchSize={{ width: 50, height: 50 }}
+					thumbTouchSize={{ width: 50, height: 50 }}
 				/>
 				<MaterialCommunityIcons name="volume-high" color={'#DE5246'} size={25} />
 			</View>
