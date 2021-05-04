@@ -9,6 +9,7 @@ import { AudioPlayerContextProvider } from './contexts/AudioPlayerContext';
 export default function App() {
   return (
     <View style={styles.container}>
+		<Text>sd</Text>
 		<GlobalContextProvider>
 			<AudioPlayerContextProvider>
 				<NavigationContainer>
