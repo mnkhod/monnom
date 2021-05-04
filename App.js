@@ -6,7 +6,6 @@ import RootStackScreen from './navigationManager';
 import { GlobalContextProvider } from './contexts/GlobalContext';
 import { AudioPlayerContextProvider } from './contexts/AudioPlayerContext';
 
-
 export default function App() {
   return (
     <View style={styles.container}>

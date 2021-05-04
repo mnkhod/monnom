@@ -31,8 +31,8 @@ export default function AudioControl({ bookPlayer }) {
 		});
 
 		await TrackPlayer.add({
-			id: 'trackId',
-			url: require('../assets/test.mp3'),
+			id: 'network',
+			url: 'https://ccrma.stanford.edu/~jos/mp3/harpsi-cs.mp3',
 			title: 'test',
 			artist: 'test artist',
 			artwork: require('../assets/podcast-1.png')
@@ -54,6 +54,7 @@ export default function AudioControl({ bookPlayer }) {
 	}
 
 	useEffect(() => {
+		return () => TrackPlayer.destroy();
 	},[])
 
 	let handlePlay = async () => {
