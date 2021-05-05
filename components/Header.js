@@ -25,7 +25,7 @@ export default function Header() {
 			activeFancyAnime,
 			{
 				toValue: translateValue,
-				duration: 200,
+				duration: 100,
 				useNativeDriver: true
 			}
 		).start();
@@ -79,7 +79,7 @@ let styles = StyleSheet.create({
 		paddingVertical: 25,
 		justifyContent: 'center',
 		alignItems: 'center',
-	backgroundColor: '#0F191E'
+		backgroundColor: '#0F191E'
 	},
 
 	
