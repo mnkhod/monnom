@@ -9,9 +9,10 @@ import * as RNFS from 'react-native-fs';
 
 export default function App() {
 	let path = RNFS.DocumentDirectoryPath + '/test.json';
-	let testjson = {name: 'uuganbat'};
+	let testjson = {name: 'uuganbat', age: 20};
 	let json = JSON.stringify(testjson);
-	RNFS.writeFile(path, testjson)
+
+	RNFS.writeFile(path, json)
 		.then((success) => {
 			console.log('created');
 		})
