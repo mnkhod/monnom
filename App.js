@@ -19,6 +19,7 @@ export default function App() {
 			console.log(err.message);
 		})
 	RNFS.readFile(path).then(res => console.log(res));
+
 	return (
 		<View style={styles.container}>
 			<GlobalContextProvider>
