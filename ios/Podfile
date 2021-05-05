@@ -14,6 +14,10 @@ target 'monnom' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'monnomTests' do
     inherit! :complete
     # Pods for testing
